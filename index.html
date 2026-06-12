@@ -1,833 +1,995 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yves Iraguha - Full Stack Developer</title>
-    <style>
-        /* Custom variables */
-        :root {
-            --primary-color: #4a6fa5;
-            --secondary-color: #166d3b;
-            --dark-color: #333;
-            --light-color: #f4f4f4;
-            --danger-color: #dc3545;
-            --success-color: #28a745;
-            --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            --transition: all 0.3s ease;
-        }
-
-        /* Global Styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            background-color: #f8f9fa;
-            color: #333;
-        }
-
-        a {
-            text-decoration: none;
-            color: var(--primary-color);
-        }
-
-        ul {
-            list-style: none;
-        }
-
-        img {
-            max-width: 100%;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            overflow: hidden;
-        }
-
-        .btn {
-            display: inline-block;
-            background: var(--primary-color);
-            color: #fff;
-            padding: 10px 25px;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-            text-align: center;
-            font-size: 16px;
-            margin: 10px 0;
-            transition: var(--transition);
-        }
-
-        .btn:hover {
-            background: #3a5a8f;
-            transform: scale(1.02);
-        }
-
-        .btn-secondary {
-            background: var(--secondary-color);
-        }
-
-        .btn-secondary:hover {
-            background: #125a30;
-        }
-
-        /* Header */
-        #header {
-            background: linear-gradient(to right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.6)), url('/api/placeholder/1920/1080') no-repeat center center/cover;
-            color: #fff;
-            height: 100vh;
-            position: relative;
-        }
-
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 0;
-        }
-
-        .navbar .logo {
-            font-size: 25px;
-            font-weight: 700;
-            color: #fff;
-        }
-
-        .navbar .logo span {
-            color: var(--primary-color);
-        }
-
-        .navbar ul {
-            display: flex;
-        }
-
-        .navbar ul li {
-            margin-left: 20px;
-        }
-
-        .navbar ul li a {
-            color: #fff;
-            font-size: 18px;
-            transition: var(--transition);
-        }
-
-        .navbar ul li a:hover {
-            color: var(--primary-color);
-            border-bottom: 2px solid var(--primary-color);
-            padding-bottom: 5px;
-        }
-
-        .navbar .hamburger {
-            display: none;
-            cursor: pointer;
-            color: #fff;
-            font-size: 24px;
-        }
-
-        .hero-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            height: calc(100vh - 80px);
-            padding: 0 20px;
-        }
-
-        .hero-content h1 {
-            font-size: 56px;
-            margin-bottom: 20px;
-        }
-
-        .hero-content h2 {
-            font-size: 30px;
-            margin-bottom: 15px;
-        }
-
-        .hero-content p {
-            font-size: 20px;
-            max-width: 700px;
-            margin-bottom: 30px;
-        }
-
-        .typed-text {
-            color: var(--primary-color);
-            font-weight: 600;
-        }
-
-        /* About Section */
-        #about {
-            padding: 80px 0;
-        }
-
-        .about-container {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 30px;
-            align-items: center;
-        }
-
-        .about-img {
-            width: 100%;
-            border-radius: 10px;
-            box-shadow: var(--box-shadow);
-            overflow: hidden;
-        }
-
-        .about-img img {
-            transition: var(--transition);
-        }
-
-        .about-img img:hover {
-            transform: scale(1.03);
-        }
-
-        .about-content h2 {
-            font-size: 36px;
-            margin-bottom: 20px;
-            color: var(--dark-color);
-        }
-
-        .about-content h3 {
-            font-size: 24px;
-            margin-bottom: 15px;
-            color: var(--primary-color);
-        }
-
-        .about-content p {
-            margin-bottom: 20px;
-            color: #666;
-            line-height: 1.8;
-        }
-
-        /* Skills Section */
-        #skills {
-            padding: 80px 0;
-            background: #f1f5f9;
-        }
-
-        #skills h2 {
-            text-align: center;
-            font-size: 36px;
-            margin-bottom: 50px;
-            color: var(--dark-color);
-        }
-
-        .skills-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 30px;
-        }
-
-        .skill-card {
-            background: #fff;
-            border-radius: 10px;
-            padding: 30px;
-            text-align: center;
-            box-shadow: var(--box-shadow);
-            transition: var(--transition);
-        }
-
-        .skill-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .skill-card i {
-            font-size: 50px;
-            color: var(--primary-color);
-            margin-bottom: 20px;
-        }
-
-        .skill-card h3 {
-            font-size: 22px;
-            margin-bottom: 15px;
-            color: var(--dark-color);
-        }
-
-        .skill-card p {
-            color: #666;
-        }
-
-        /* Projects Section */
-        #projects {
-            padding: 80px 0;
-        }
-
-        #projects h2 {
-            text-align: center;
-            font-size: 36px;
-            margin-bottom: 50px;
-            color: var(--dark-color);
-        }
-
-        .projects-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 30px;
-        }
-
-        .project-card {
-            background: #fff;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: var(--box-shadow);
-            transition: var(--transition);
-        }
-
-        .project-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .project-img {
-            height: 200px;
-            overflow: hidden;
-        }
-
-        .project-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: var(--transition);
-        }
-
-        .project-card:hover .project-img img {
-            transform: scale(1.1);
-        }
-
-        .project-content {
-            padding: 20px;
-        }
-
-        .project-content h3 {
-            font-size: 22px;
-            margin-bottom: 10px;
-            color: var(--dark-color);
-        }
-
-        .project-content p {
-            color: #666;
-            margin-bottom: 15px;
-        }
-
-        .project-content .dates {
-            color: var(--primary-color);
-            font-weight: 600;
-            margin-bottom: 10px;
-            font-size: 14px;
-        }
-
-        .project-content ul {
-            list-style: disc;
-            padding-left: 20px;
-            margin-bottom: 15px;
-        }
-
-        .project-content ul li {
-            margin-bottom: 8px;
-            color: #555;
-        }
-
-        /* Contact Section */
-        #contact {
-            padding: 80px 0;
-            background: linear-gradient(to right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.6)), url('/api/placeholder/1920/1080') no-repeat center center/cover;
-            color: #fff;
-        }
-
-        #contact h2 {
-            text-align: center;
-            font-size: 36px;
-            margin-bottom: 50px;
-        }
-
-        .contact-container {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 30px;
-        }
-
-        .contact-form {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 30px;
-            border-radius: 10px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 600;
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-        }
-
-        .form-group textarea {
-            height: 150px;
-        }
-
-        .contact-info {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .contact-info h3 {
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-
-        .contact-info p {
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-        }
-
-        .contact-info p i {
-            margin-right: 10px;
-            font-size: 20px;
-            color: var(--primary-color);
-        }
-
-        /* Footer */
-        #footer {
-            background: var(--dark-color);
-            color: #fff;
-            padding: 20px 0;
-            text-align: center;
-        }
-
-        .social-icons {
-            margin-bottom: 20px;
-        }
-
-        .social-icons a {
-            display: inline-block;
-            width: 40px;
-            height: 40px;
-            background: #fff;
-            color: var(--dark-color);
-            border-radius: 50%;
-            line-height: 40px;
-            margin: 0 5px;
-            transition: var(--transition);
-        }
-
-        .social-icons a:hover {
-            background: var(--primary-color);
-            color: #fff;
-        }
-
-        /* Mobile navbar */
-        .mobile-nav {
-            background: var(--dark-color);
-            position: fixed;
-            top: 0;
-            right: 0;
-            width: 0;
-            height: 100%;
-            overflow-x: hidden;
-            transition: 0.5s;
-            z-index: 100;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .mobile-nav.active {
-            width: 100%;
-        }
-
-        .mobile-nav a {
-            padding: 15px;
-            text-decoration: none;
-            font-size: 24px;
-            color: #fff;
-            display: block;
-            transition: 0.3s;
-        }
-
-        .mobile-nav a:hover {
-            color: var(--primary-color);
-        }
-
-        .mobile-nav .closebtn {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 30px;
-            cursor: pointer;
-        }
-
-        /* Responsive Styles */
-        @media (max-width: 992px) {
-            .about-container {
-                grid-template-columns: 1fr;
-            }
-
-            .about-img {
-                max-width: 500px;
-                margin: 0 auto;
-            }
-
-            .contact-container {
-                grid-template-columns: 1fr;
-            }
-
-            .contact-info {
-                margin-top: 30px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .navbar ul {
-                display: none;
-            }
-
-            .navbar .hamburger {
-                display: block;
-            }
-
-            .hero-content h1 {
-                font-size: 42px;
-            }
-
-            .hero-content h2 {
-                font-size: 24px;
-            }
-
-            .projects-container {
-                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            }
-        }
-
-        @media (max-width: 576px) {
-            .hero-content h1 {
-                font-size: 36px;
-            }
-
-            .hero-content p {
-                font-size: 16px;
-            }
-
-            #skills h2, #projects h2, #contact h2, .about-content h2 {
-                font-size: 30px;
-            }
-        }
-    </style>
-    <!-- Font Awesome for icons -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yves Iraguha — Full-Stack Developer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #0d0d0d;
+      --surface: #f7f6f2;
+      --white: #ffffff;
+      --accent: #1a6b3c;
+      --accent-light: #e8f5ee;
+      --accent2: #2a5298;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --card-bg: #ffffff;
+      --hero-bg: #0d1117;
+      --tag-bg: #f0f4ff;
+      --tag-text: #2a5298;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--surface);
+      color: var(--ink);
+      line-height: 1.6;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      background: rgba(13,17,23,0.95);
+      backdrop-filter: blur(12px);
+      z-index: 999;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5%;
+      height: 64px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-size: 20px;
+      color: #fff;
+      letter-spacing: -0.5px;
+    }
+    .nav-logo span { color: #4ade80; }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a {
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: #4ade80; }
+
+    /* ─── HERO ─── */
+    #hero {
+      background: var(--hero-bg);
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 100px 5% 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    #hero::before {
+      content: '';
+      position: absolute; top: -200px; right: -200px;
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(26,107,60,0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    #hero::after {
+      content: '';
+      position: absolute; bottom: -150px; left: -150px;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(42,82,152,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-inner {
+      max-width: 1100px; margin: 0 auto; width: 100%;
+      position: relative; z-index: 1;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(74,222,128,0.1);
+      border: 1px solid rgba(74,222,128,0.25);
+      color: #4ade80;
+      padding: 6px 14px;
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+    }
+    .hero-badge::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: #4ade80;
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.8); }
+    }
+    .hero-name {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(48px, 7vw, 88px);
+      font-weight: 800;
+      color: #fff;
+      line-height: 0.95;
+      letter-spacing: -2px;
+      margin-bottom: 16px;
+    }
+    .hero-name .accent-line {
+      display: block;
+      background: linear-gradient(90deg, #4ade80, #22d3ee);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-title {
+      font-size: 18px;
+      color: rgba(255,255,255,0.55);
+      font-weight: 400;
+      margin-bottom: 28px;
+      letter-spacing: 0.2px;
+    }
+    .hero-title strong { color: rgba(255,255,255,0.85); font-weight: 600; }
+    .hero-summary {
+      max-width: 560px;
+      font-size: 16px;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.7;
+      margin-bottom: 40px;
+    }
+    .hero-stats {
+      display: flex; gap: 40px;
+      margin-bottom: 44px;
+      flex-wrap: wrap;
+    }
+    .stat { display: flex; flex-direction: column; }
+    .stat-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 36px;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1;
+    }
+    .stat-num .plus { color: #4ade80; }
+    .stat-label {
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 4px;
+    }
+    .hero-cta { display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: #1a6b3c;
+      color: #fff;
+      padding: 14px 28px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 600;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-primary:hover { background: #145a32; transform: translateY(-1px); }
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: 8px;
+      border: 1px solid rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.8);
+      padding: 14px 28px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 500;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-outline:hover { border-color: rgba(255,255,255,0.5); color: #fff; }
+
+    /* ─── SECTIONS ─── */
+    section { padding: 96px 5%; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(30px, 4vw, 44px);
+      font-weight: 800;
+      color: var(--ink);
+      letter-spacing: -1px;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+    .section-desc {
+      font-size: 16px;
+      color: var(--muted);
+      max-width: 520px;
+      line-height: 1.7;
+      margin-bottom: 56px;
+    }
+
+    /* ─── ABOUT ─── */
+    #about { background: var(--white); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 72px;
+      align-items: start;
+    }
+    .about-left { }
+    .about-bio {
+      font-size: 16px;
+      color: #374151;
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+    .about-highlights {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 32px;
+    }
+    .highlight-item {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 16px;
+      background: var(--surface);
+      border-radius: 10px;
+    }
+    .highlight-icon {
+      width: 36px; height: 36px;
+      background: var(--accent-light);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+    .highlight-text strong {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 2px;
+    }
+    .highlight-text span {
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .about-right { }
+    .exp-timeline { }
+    .exp-item {
+      padding: 20px 0 20px 24px;
+      border-left: 2px solid var(--border);
+      position: relative;
+      margin-bottom: 8px;
+    }
+    .exp-item::before {
+      content: '';
+      position: absolute; left: -5px; top: 24px;
+      width: 8px; height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+    .exp-item.current::before { background: #4ade80; }
+    .exp-company {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 2px;
+    }
+    .exp-role {
+      font-size: 13px;
+      color: var(--accent2);
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+    .exp-period {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    /* ─── SKILLS ─── */
+    #skills { background: var(--surface); }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+    }
+    .skill-pill {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px 20px;
+      display: flex; align-items: center; gap: 12px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .skill-pill:hover {
+      border-color: var(--accent);
+      box-shadow: 0 4px 16px rgba(26,107,60,0.08);
+    }
+    .skill-icon {
+      width: 36px; height: 36px;
+      background: var(--accent-light);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+    .skill-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--ink);
+    }
+    .skill-type {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 1px;
+    }
+
+    /* ─── PROJECTS ─── */
+    #projects { background: var(--white); }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 24px;
+    }
+    .project-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      display: flex; flex-direction: column;
+      transition: box-shadow 0.25s, transform 0.25s;
+    }
+    .project-card:hover {
+      box-shadow: 0 16px 48px rgba(0,0,0,0.1);
+      transform: translateY(-4px);
+    }
+    .project-card.featured {
+      grid-column: span 2;
+    }
+    .project-header {
+      padding: 28px 28px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: flex-start; justify-content: space-between; gap: 16px;
+    }
+    .project-icon {
+      width: 48px; height: 48px;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+    .project-meta { flex: 1; }
+    .project-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+    .project-type {
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 500;
+    }
+    .project-badge {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 100px;
+      white-space: nowrap;
+    }
+    .badge-live { background: #dcfce7; color: #166534; }
+    .badge-demo { background: #dbeafe; color: #1e40af; }
+    .badge-shipped { background: #f3e8ff; color: #6b21a8; }
+    .project-body { padding: 20px 28px 24px; flex: 1; }
+    .project-desc {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+    .project-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px; }
+    .tag {
+      background: var(--tag-bg);
+      color: var(--tag-text);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 6px;
+    }
+    .project-links { display: flex; gap: 10px; flex-wrap: wrap; }
+    .link-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 16px;
+      border-radius: 7px;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+    .link-btn-primary {
+      background: var(--ink);
+      color: #fff;
+    }
+    .link-btn-primary:hover { background: #1f2937; }
+    .link-btn-secondary {
+      background: var(--surface);
+      color: var(--ink);
+      border: 1px solid var(--border);
+    }
+    .link-btn-secondary:hover { background: var(--border); }
+    .credentials {
+      background: #f8fafc;
+      border: 1px dashed #cbd5e1;
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 16px;
+      display: flex; gap: 16px; flex-wrap: wrap;
+    }
+    .credentials span strong { color: var(--ink); }
+
+    /* ─── CONTACT ─── */
+    #contact { background: var(--hero-bg); color: #fff; }
+    #contact .section-title { color: #fff; }
+    #contact .section-desc { color: rgba(255,255,255,0.5); }
+    #contact .section-label { color: #4ade80; }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 56px;
+      align-items: start;
+    }
+    .contact-item {
+      display: flex; align-items: center; gap: 16px;
+      margin-bottom: 28px;
+    }
+    .contact-item-icon {
+      width: 44px; height: 44px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+    .contact-item-text strong {
+      display: block;
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
+      font-weight: 500;
+      margin-bottom: 2px;
+    }
+    .contact-item-text a, .contact-item-text span {
+      color: rgba(255,255,255,0.9);
+      font-size: 15px;
+      font-weight: 500;
+      text-decoration: none;
+    }
+    .contact-item-text a:hover { color: #4ade80; }
+    .contact-form-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      padding: 32px;
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group { margin-bottom: 16px; }
+    .form-group label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.5);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 8px;
+    }
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      padding: 12px 14px;
+      color: #fff;
+      font-size: 14px;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: rgba(74,222,128,0.4);
+    }
+    .form-group textarea { height: 120px; resize: vertical; }
+    ::placeholder { color: rgba(255,255,255,0.25); }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: #060a0f;
+      color: rgba(255,255,255,0.35);
+      text-align: center;
+      padding: 28px 5%;
+      font-size: 13px;
+    }
+    footer span { color: #4ade80; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      .about-grid { grid-template-columns: 1fr; gap: 48px; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .project-card.featured { grid-column: span 1; }
+      .hero-stats { gap: 24px; }
+    }
+    @media (max-width: 700px) {
+      .nav-links { display: none; }
+      .form-row { grid-template-columns: 1fr; }
+      .about-highlights { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
-    <!-- Header Section -->
-    <header id="header">
-        <div class="container">
-            <nav class="navbar">
-                <h1 class="logo">Yves<span>Iraguha</span></h1>
-                <ul>
-                    <li><a href="#header">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#skills">Skills</a></li>
-                    <li><a href="#projects">Projects</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-                <div class="hamburger" onclick="openMobileNav()">
-                    <i class="fas fa-bars"></i>
-                </div>
-            </nav>
 
-            <div class="hero-content">
-                <h1>Yves Iraguha</h1>
-                <h2>I'm a <span class="typed-text">Full Stack Developer</span></h2>
-                <p>Specializing in building responsive web applications and mobile solutions with modern technologies</p>
-                <div>
-                    <a href="#projects" class="btn">View My Work</a>
-                    <a href="#contact" class="btn btn-secondary">Contact Me</a>
-                </div>
-            </div>
-        </div>
-    </header>
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Yves<span>.</span>dev</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
 
-    <!-- Mobile Nav -->
-    <div id="mobileNav" class="mobile-nav">
-        <span class="closebtn" onclick="closeMobileNav()">&times;</span>
-        <a href="#header" onclick="closeMobileNav()">Home</a>
-        <a href="#about" onclick="closeMobileNav()">About</a>
-        <a href="#skills" onclick="closeMobileNav()">Skills</a>
-        <a href="#projects" onclick="closeMobileNav()">Projects</a>
-        <a href="#contact" onclick="closeMobileNav()">Contact</a>
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">Available for new opportunities</div>
+    <h1 class="hero-name">
+      Yves Iraguha
+      <span class="accent-line">Full-Stack Engineer</span>
+    </h1>
+    <p class="hero-title">
+      <strong>Web · Mobile · Cloud</strong> — Based in Kigali, Rwanda
+    </p>
+    <p class="hero-summary">
+      Building production-grade systems for mining, government, hospitality, and marketplace sectors.
+      5+ years delivering real products used by real organisations.
+    </p>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">5<span class="plus">+</span></div>
+        <div class="stat-label">Years Experience</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">10<span class="plus">+</span></div>
+        <div class="stat-label">Projects Shipped</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">4</div>
+        <div class="stat-label">Sectors Served</div>
+      </div>
     </div>
+    <div class="hero-cta">
+      <a href="#projects" class="btn-primary">View Projects →</a>
+      <a href="#contact" class="btn-outline">Get in touch</a>
+    </div>
+  </div>
+</section>
 
-    <!-- About Section -->
-    <section id="about">
-        <div class="container">
-            <div class="about-container">
-                <div class="about-img">
-                    <img src="me.jpeg" alt="Yves Iraguha">
-                </div>
-                <div class="about-content">
-                    <h2>About Me</h2>
-                    <h3>Full Stack Developer from Rwanda</h3>
-                    <p>
-                        I am a passionate and experienced full stack developer with expertise in both web and mobile development.
-                        My journey in software development has equipped me with a diverse skill set spanning frontend and backend technologies.
-                    </p>
-                    <p>
-                        I specialize in creating responsive and user-friendly applications that solve real-world problems.
-                        My experience includes working with teams to deliver high-quality software solutions across various industries.
-                    </p>
-                    <a href="#contact" class="btn">Let's Talk</a>
-                </div>
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div class="section-label">Who I am</div>
+    <div class="about-grid">
+      <div class="about-left">
+        <h2 class="section-title">Turning complex<br>requirements into<br>working software</h2>
+        <p class="about-bio">
+          I'm a full-stack developer with 5+ years building production systems across web, mobile, and cloud. My work spans artisanal mining traceability platforms, government visitor management, hotel operations, marketplace apps, and more.
+        </p>
+        <p class="about-bio">
+          I care about the entire lifecycle: architecture decisions, clean APIs, intuitive UIs, and reliable cloud deployments. My background with Docker, Kubernetes, and GCP means I ship code that actually runs at scale.
+        </p>
+        <div class="about-highlights">
+          <div class="highlight-item">
+            <div class="highlight-icon">🎓</div>
+            <div class="highlight-text">
+              <strong>BSc Computer Science</strong>
+              <span>University of Rwanda</span>
             </div>
-        </div>
-    </section>
-
-    <!-- Skills Section -->
-    <section id="skills">
-        <div class="container">
-            <h2>My Skills</h2>
-            <div class="skills-container">
-                <div class="skill-card">
-                    <i class="fab fa-react"></i>
-                    <h3>React & React Native</h3>
-                    <p>Building responsive web interfaces and cross-platform mobile applications</p>
-                </div>
-                <div class="skill-card">
-                    <i class="fab fa-java"></i>
-                    <h3>Java</h3>
-                    <p>Developing robust backend services and enterprise applications</p>
-                </div>
-                <div class="skill-card">
-                    <i class="fab fa-php"></i>
-                    <h3>PHP</h3>
-                    <p>Creating dynamic server-side applications and content management systems</p>
-                </div>
-                <div class="skill-card">
-                    <i class="fab fa-python"></i>
-                    <h3>Python (Django)</h3>
-                    <p>Building scalable web applications with Django framework</p>
-                </div>
-                <div class="skill-card">
-                    <i class="fas fa-code"></i>
-                    <h3>C & C++</h3>
-                    <p>Developing system-level software and performance-critical applications</p>
-                </div>
-                <div class="skill-card">
-                    <i class="fab fa-html5"></i>
-                    <h3>HTML & CSS</h3>
-                    <p>Crafting responsive and accessible web interfaces</p>
-                </div>
-                <div class="skill-card">
-                    <i class="fas fa-database"></i>
-                    <h3>SQL & PostgreSQL</h3>
-                    <p>Designing and optimizing relational database systems</p>
-                </div>
-                <div class="skill-card">
-                    <i class="fas fa-server"></i>
-                    <h3>MongoDB</h3>
-                    <p>Working with NoSQL databases for flexible data storage</p>
-                </div>
+          </div>
+          <div class="highlight-item">
+            <div class="highlight-icon">☁️</div>
+            <div class="highlight-text">
+              <strong>Cloud Deployments</strong>
+              <span>GCP, Docker, Kubernetes</span>
             </div>
-        </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section id="projects">
-        <div class="container">
-            <h2>My Projects</h2>
-            <div class="projects-container">
-                <div class="project-card">
-                    <div class="project-img">
-                        <img src="log.png" alt="Good Linkage Project">
-                    </div>
-                    <div class="project-content">
-                        <div class="dates">2023 - 2024</div>
-                        <h3>Good Linkage</h3>
-                        <p>Mobile application development for iOS and Android platforms</p>
-                        <ul>
-                            <li>Developed and maintained mobile applications using React Native</li>
-                            <li>Worked with RESTful APIs and third-party libraries</li>
-                            <li>Implemented responsive and adaptive user interfaces</li>
-                            <li>Collaborated with cross-functional teams to create seamless user experiences</li>
-                        </ul>
-                        <a href="https://play.google.com/store/apps/details?id=com.goodlinkage&hl=en" class="btn">View Details</a>
-                    </div>
-                </div>
-               
-                <div class="project-card">
-                    <div class="project-img">
-                        <img src="minexx-196-blue.png" alt="Minexx Dashboard">
-                    </div>
-                    <div class="project-content">
-                        <div class="dates">2024 - Present</div>
-                        <h3>Minexx Dashboard</h3>
-                        <p>Mining management system for Rwanda</p>
-                        <ul>
-                            <li>Developed dashboard for monitoring mining operations</li>
-                            <li>Implemented data visualization and reporting features</li>
-                            <li>Created intuitive interface for tracking mining activities</li>
-                            <li>Integrated with existing mining management infrastructure</li>
-                        </ul>
-                        <a href="https://minexx.co/" class="btn">View Details</a>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-img">
-                       
-                    </div>
-                    <div class="project-content">
-                        <div class="dates">Feb 2024 - May 2024</div>
-                        <h3>E-Shop</h3>
-                        <p>E-commerce platform with mobile and web interfaces</p>
-                        <ul>
-                            <li>Developed platform using React Native for mobile and Node.js with MongoDB for backend</li>
-                            <li>Implemented features for ordering, payment processing, and real-time tracking</li>
-                            <li>Designed and developed admin panel using React.js</li>
-                        </ul>
-                        <a href="#" class="btn">View Details</a>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-img">
-                       
-                    </div>
-                    <div class="project-content">
-                        <div class="dates"> 2024</div>
-                        <h3>VMS (Visitor Management System)</h3>
-                        <p>System to monitor and control visitor check-in/out processes</p>
-                        <ul>
-                            <li>Developed using Django and PostgreSQL</li>
-                            <li>Implemented real-time tracking of visitor movements</li>
-                            <li>Created automated notifications for hosts</li>
-                            <li>Currently in use by Minecofin</li>
-                        </ul>
-                        <a href="#" class="btn">View Details</a>
-                    </div>
-                </div>
+          </div>
+          <div class="highlight-item">
+            <div class="highlight-icon">🤖</div>
+            <div class="highlight-text">
+              <strong>AI/ML Integration</strong>
+              <span>OCR · Prediction APIs</span>
             </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact">
-        <div class="container">
-            <h2>Get In Touch</h2>
-            <div class="contact-container">
-                <div class="contact-form">
-                    <form>
-                        <div class="form-group">
-                            <label for="name">Name</label>
-                            <input type="text" id="name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="subject">Subject</label>
-                            <input type="text" id="subject" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="message">Message</label>
-                            <textarea id="message" required></textarea>
-                        </div>
-                        <button type="submit" class="btn">Send Message</button>
-                    </form>
-                </div>
-                <div class="contact-info">
-                    <h3>Contact Information</h3>
-                    <p><i class="fas fa-map-marker-alt"></i> Kigali, Rwanda</p>
-                    <p><i class="fas fa-phone"></i> +250 788517392</p>
-                    <p><i class="fas fa-envelope"></i> iraguhayves0788@gmail.com</p>
-                   
-                </div>
+          </div>
+          <div class="highlight-item">
+            <div class="highlight-icon">📍</div>
+            <div class="highlight-text">
+              <strong>Kigali, Rwanda</strong>
+              <span>Open to remote globally</span>
             </div>
+          </div>
         </div>
-    </section>
+      </div>
+      <div class="about-right">
+        <div style="margin-bottom: 12px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--muted);">Experience</div>
+        <div class="exp-timeline">
+          <div class="exp-item current">
+            <div class="exp-company">Minexx</div>
+            <div class="exp-role">Full-Stack Developer</div>
+            <div class="exp-period">2024 – Present · Remote</div>
+          </div>
+          <div class="exp-item">
+            <div class="exp-company">Goodlinkage Ltd</div>
+            <div class="exp-role">Full-Stack Developer</div>
+            <div class="exp-period">2023 – 2024 · Remote</div>
+          </div>
+          <div class="exp-item">
+            <div class="exp-company">BTECH Company</div>
+            <div class="exp-role">Full-Stack Developer</div>
+            <div class="exp-period">2022 – 2024</div>
+          </div>
+          <div class="exp-item">
+            <div class="exp-company">MINICOFIN (Freelance)</div>
+            <div class="exp-role">Full-Stack Developer</div>
+            <div class="exp-period">2023 – 2024</div>
+          </div>
+          <div class="exp-item">
+            <div class="exp-company">E-Shop (Freelance)</div>
+            <div class="exp-role">Mobile App Developer</div>
+            <div class="exp-period">2022</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!-- Footer -->
-    <footer id="footer">
-        <div class="container">
-            <div class="social-icons">
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                <a href="#"><i class="fab fa-github"></i></a>
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-inner">
+    <div class="section-label">Technical Stack</div>
+    <h2 class="section-title">What I build with</h2>
+    <p class="section-desc">End-to-end proficiency across the full stack — from pixel-perfect UIs to cloud-deployed APIs.</p>
+    <div class="skills-grid">
+      <div class="skill-pill">
+        <div class="skill-icon">⚛️</div>
+        <div><div class="skill-name">React.js / Next.js</div><div class="skill-type">Frontend</div></div>
+      </div>
+      <div class="skill-pill">
+        <div class="skill-icon">📱</div>
+        <div><div class="skill-name">React Native</div><div class="skill-type">Mobile</div></div>
+      </div>
+      <div class="skill-pill">
+        <div class="skill-icon">🟩</div>
+        <div><div class="skill-name">Node.js / Express</div><div class="skill-type">Backend</div></div>
+      </div>
+      <div class="skill-pill">
+        <div class="skill-icon">🏗️</div>
+        <div><div class="skill-name">NestJS</div><div class="skill-type">Backend</div></div>
+      </div>
+      <div class="skill-pill">
+        <div class="skill-icon">🐍</div>
+        <div><div class="skill-name">Django / Python</div><div class="skill-type">Backend · ML</div></div>
+      </div>
+      <div class="skill-pill">
+        <div class="skill-icon">🐘</div>
+        <div><div class="skill-name">PostgreSQL / MySQL</div><div class="skill-type">Database</div></div>
+      </div>
+      <div class="skill-pill">
+        <div class="skill-icon">🍃</div>
+        <div><div class="skill-name">MongoDB</div><div class="skill-type">Database</div></div>
+      </div>
+      <div class="skill-pill">
+        <div class="skill-icon">🐳</div>
+        <div><div class="skill-name">Docker / Kubernetes</div><div class="skill-type">DevOps</div></div>
+      </div>
+      <div class="skill-pill">
+        <div class="skill-icon">☁️</div>
+        <div><div class="skill-name">GCP (Cloud Run)</div><div class="skill-type">Cloud</div></div>
+      </div>
+      <div class="skill-pill">
+        <div class="skill-icon">🔤</div>
+        <div><div class="skill-name">Tailwind CSS</div><div class="skill-type">Frontend</div></div>
+      </div>
+      <div class="skill-pill">
+        <div class="skill-icon">🔍</div>
+        <div><div class="skill-name">OCR Pipelines</div><div class="skill-type">AI / ML</div></div>
+      </div>
+      <div class="skill-pill">
+        <div class="skill-icon">🗺️</div>
+        <div><div class="skill-name">Google Maps API</div><div class="skill-type">Integration</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-inner">
+    <div class="section-label">Work</div>
+    <h2 class="section-title">Projects I've shipped</h2>
+    <p class="section-desc">Production systems across mining, government, hospitality, and e-commerce. Real users, real impact.</p>
+    <div class="projects-grid">
+
+      <!-- MINEXX — featured -->
+      <div class="project-card featured">
+        <div class="project-header">
+          <div style="display:flex; align-items:flex-start; gap:16px; flex:1">
+            <div class="project-icon" style="background:#dcfce7">⛏️</div>
+            <div class="project-meta">
+              <div class="project-name">MineSmart — Minexx</div>
+              <div class="project-type">Digital Mineral Traceability &amp; Analytics Platform · 2024 – Present</div>
             </div>
-            <p>&copy; 2025 Yves Iraguha. All Rights Reserved.</p>
+          </div>
+          <span class="project-badge badge-live">Live</span>
         </div>
-    </footer>
+        <div class="project-body">
+          <p class="project-desc">
+            End-to-end digital traceability for artisanal and small-scale mining (ASM) operations in Central Africa.
+            Built modules for regulatory compliance, real-time export container tracking on an interactive map,
+            ML-powered tin price prediction, and an OCR-based compliance document verification pipeline —
+            significantly reducing manual review time in supply chains.
+          </p>
+          <div class="credentials">
+            <span>🔑 Demo: <strong>test@minexx.co</strong> / <strong>test2025$</strong></span>
+          </div>
+          <div class="project-tags">
+            <span class="tag">React.js</span>
+            <span class="tag">Node.js</span>
+            <span class="tag">Python ML</span>
+            <span class="tag">GCP</span>
+            <span class="tag">Google Maps API</span>
+            <span class="tag">OCR</span>
+            <span class="tag">SQL</span>
+          </div>
+          <div class="project-links">
+            <a href="https://minexx-dashboard-demo.vercel.app" target="_blank" class="link-btn link-btn-primary">🚀 Live Demo</a>
+            <a href="https://www.canva.com/design/DAG90hW_gqI/u6dCX8PGUtUPi6dOQwRQHQ/view?utm_content=DAG90hW_gqI&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h7ee75033a1#7" target="_blank" class="link-btn link-btn-secondary">📊 Presentation</a>
+          </div>
+        </div>
+      </div>
 
-    <!-- JavaScript -->
-    <script>
-        // Mobile Navigation
-        function openMobileNav() {
-            document.getElementById("mobileNav").classList.add("active");
-        }
+      <!-- GOODLINKAGE -->
+      <div class="project-card">
+        <div class="project-header">
+          <div style="display:flex; align-items:flex-start; gap:16px; flex:1">
+            <div class="project-icon" style="background:#dbeafe">🛍️</div>
+            <div class="project-meta">
+              <div class="project-name">Goodlinkage Platform</div>
+              <div class="project-type">Marketplace + Social + AI Tools · 2023 – 2024</div>
+            </div>
+          </div>
+          <span class="project-badge badge-live">Live</span>
+        </div>
+        <div class="project-body">
+          <p class="project-desc">
+            Multifunction platform combining marketplace listings, social posting, and AI assistant features.
+            Location-based product discovery, push notifications, real-time chat, and content posting for goods, services, and jobs. Available on web and Android.
+          </p>
+          <div class="credentials">
+            <span>🔑 Demo: <strong>test@gmail.com</strong> / <strong>qwerty</strong></span>
+          </div>
+          <div class="project-tags">
+            <span class="tag">React.js</span>
+            <span class="tag">React Native</span>
+            <span class="tag">Node.js</span>
+            <span class="tag">MongoDB</span>
+            <span class="tag">GCP</span>
+          </div>
+          <div class="project-links">
+            <a href="https://goodlinkage.com/" target="_blank" class="link-btn link-btn-primary">🌐 Web App</a>
+            <a href="https://play.google.com/store/apps/details?id=com.goodlinkage&hl=en" target="_blank" class="link-btn link-btn-secondary">📱 Play Store</a>
+          </div>
+        </div>
+      </div>
 
-        function closeMobileNav() {
-            document.getElementById("mobileNav").classList.remove("active");
-        }
+      <!-- BEDA CONSULT -->
+      <div class="project-card">
+        <div class="project-header">
+          <div style="display:flex; align-items:flex-start; gap:16px; flex:1">
+            <div class="project-icon" style="background:#fef9c3">🌐</div>
+            <div class="project-meta">
+              <div class="project-name">Beda Consult Website</div>
+              <div class="project-type">Corporate Web Presence · Freelance</div>
+            </div>
+          </div>
+          <span class="project-badge badge-live">Live</span>
+        </div>
+        <div class="project-body">
+          <p class="project-desc">
+            Designed and developed a professional corporate website for Beda Consult. Responsive, fast, and built
+            to represent the brand credibly online.
+          </p>
+          <div class="project-tags">
+            <span class="tag">Web</span>
+            <span class="tag">Responsive Design</span>
+          </div>
+          <div class="project-links">
+            <a href="https://www.bedaconsult.com/" target="_blank" class="link-btn link-btn-primary">🔗 Visit Site</a>
+          </div>
+        </div>
+      </div>
 
-        // Smooth scrolling for navigation
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
+      <!-- HOTEL MANAGEMENT -->
+      <div class="project-card">
+        <div class="project-header">
+          <div style="display:flex; align-items:flex-start; gap:16px; flex:1">
+            <div class="project-icon" style="background:#fce7f3">🏨</div>
+            <div class="project-meta">
+              <div class="project-name">Hotel Management System</div>
+              <div class="project-type">Silver Hotel &amp; Baobab Hotel · BTECH · 2022–2024</div>
+            </div>
+          </div>
+          <span class="project-badge badge-shipped">Deployed</span>
+        </div>
+        <div class="project-body">
+          <p class="project-desc">
+            Complete hotel operations platform: reservation management, room availability, billing/invoicing, customer CRM,
+            housekeeping workflow, maintenance requests, and executive dashboards — serving two hotels in Nyamirambo.
+          </p>
+          <div class="project-tags">
+            <span class="tag">PHP</span>
+            <span class="tag">Laravel</span>
+            <span class="tag">MySQL</span>
+            <span class="tag">GCP</span>
+            <span class="tag">REST API</span>
+          </div>
+          <div class="project-links">
+            <a href="https://www.canva.com/design/DAG90hW_gqI/u6dCX8PGUtUPi6dOQwRQHQ/view?utm_content=DAG90hW_gqI&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h7ee75033a1#6" target="_blank" class="link-btn link-btn-primary">📊 See Presentation</a>
+          </div>
+        </div>
+      </div>
 
-        // Simple typing effect
-        const typedTextSpan = document.querySelector(".typed-text");
-        const textArray = ["Full Stack Developer", "Mobile App Developer", "Web Developer", "Software Engineer"];
-        const typingDelay = 100;
-        const erasingDelay = 100;
-        const newTextDelay = 2000;
-        let textArrayIndex = 0;
-        let charIndex = 0;
+      <!-- SCHOOL MANAGEMENT -->
+      <div class="project-card">
+        <div class="project-header">
+          <div style="display:flex; align-items:flex-start; gap:16px; flex:1">
+            <div class="project-icon" style="background:#ede9fe">🎓</div>
+            <div class="project-meta">
+              <div class="project-name">School Management System</div>
+              <div class="project-type">BTECH · 2022–2024</div>
+            </div>
+          </div>
+          <span class="project-badge badge-shipped">Deployed</span>
+        </div>
+        <div class="project-body">
+          <p class="project-desc">
+            Comprehensive academic management platform covering student records, class scheduling, grades,
+            attendance, and administration workflows — built for institutional use.
+          </p>
+          <div class="project-tags">
+            <span class="tag">React.js</span>
+            <span class="tag">Node.js</span>
+            <span class="tag">SQL</span>
+            <span class="tag">REST API</span>
+          </div>
+          <div class="project-links">
+            <a href="https://www.canva.com/design/DAG90hW_gqI/u6dCX8PGUtUPi6dOQwRQHQ/view?utm_content=DAG90hW_gqI&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h7ee75033a1#10" target="_blank" class="link-btn link-btn-primary">📊 See Presentation</a>
+          </div>
+        </div>
+      </div>
 
-        function type() {
-            if (charIndex < textArray[textArrayIndex].length) {
-                typedTextSpan.textContent += textArray[textArrayIndex].charAt(charIndex);
-                charIndex++;
-                setTimeout(type, typingDelay);
-            } else {
-                setTimeout(erase, newTextDelay);
-            }
-        }
+      <!-- VMS -->
+      <div class="project-card">
+        <div class="project-header">
+          <div style="display:flex; align-items:flex-start; gap:16px; flex:1">
+            <div class="project-icon" style="background:#dcfce7">🏛️</div>
+            <div class="project-meta">
+              <div class="project-name">Visitor Management System</div>
+              <div class="project-type">MINICOFIN (Government) · 2023–2024</div>
+            </div>
+          </div>
+          <span class="project-badge badge-live">In Use</span>
+        </div>
+        <div class="project-body">
+          <p class="project-desc">
+            Secure gate-access platform deployed at Rwanda's Ministry of Finance. Real-time visitor entry/exit logging,
+            ID scanning for verification, and audit-friendly records — currently in active use.
+          </p>
+          <div class="project-tags">
+            <span class="tag">Django</span>
+            <span class="tag">PostgreSQL</span>
+            <span class="tag">ID Scanning</span>
+          </div>
+          <div class="project-links">
+            <a href="https://www.canva.com/design/DAG90hW_gqI/u6dCX8PGUtUPi6dOQwRQHQ/view?utm_content=DAG90hW_gqI&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h7ee75033a1#12" target="_blank" class="link-btn link-btn-primary">📊 See Presentation</a>
+          </div>
+        </div>
+      </div>
 
-        function erase() {
-            if (charIndex > 0) {
-                typedTextSpan.textContent = textArray[textArrayIndex].substring(0, charIndex - 1);
-                charIndex--;
-                setTimeout(erase, erasingDelay);
-            } else {
-                textArrayIndex++;
-                if (textArrayIndex >= textArray.length) textArrayIndex = 0;
-                setTimeout(type, typingDelay + 1100);
-            }
-        }
+    </div>
+  </div>
+</section>
 
-        document.addEventListener("DOMContentLoaded", function() {
-            setTimeout(type, newTextDelay + 250);
-        });
-    </script>
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="section-label">Get in touch</div>
+    <h2 class="section-title">Let's build something</h2>
+    <p class="section-desc">Open to full-time roles, contracts, and freelance projects. Remote-friendly.</p>
+    <div class="contact-grid">
+      <div>
+        <div class="contact-item">
+          <div class="contact-item-icon">📍</div>
+          <div class="contact-item-text">
+            <strong>Location</strong>
+            <span>Kigali, Rwanda · Open to remote</span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">📞</div>
+          <div class="contact-item-text">
+            <strong>Phone</strong>
+            <a href="tel:+250788517392">+250 788 517 392</a>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">✉️</div>
+          <div class="contact-item-text">
+            <strong>Email</strong>
+            <a href="mailto:iraguhayves0788@gmail.com">iraguhayves0788@gmail.com</a>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">💼</div>
+          <div class="contact-item-text">
+            <strong>LinkedIn</strong>
+            <a href="https://www.linkedin.com/in/yves-iraguha" target="_blank">linkedin.com/in/yves-iraguha</a>
+          </div>
+        </div>
+      </div>
+      <div class="contact-form-card">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Name</label>
+            <input type="text" placeholder="Your name">
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" placeholder="your@email.com">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Subject</label>
+          <input type="text" placeholder="What's this about?">
+        </div>
+        <div class="form-group">
+          <label>Message</label>
+          <textarea placeholder="Tell me about your project or opportunity…"></textarea>
+        </div>
+        <button class="btn-primary" style="width:100%; justify-content:center; border:none; cursor:pointer; font-family:inherit;">
+          Send Message →
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 <span>Yves Iraguha</span> · Full-Stack Engineer · Kigali, Rwanda</p>
+</footer>
+
 </body>
 </html>
