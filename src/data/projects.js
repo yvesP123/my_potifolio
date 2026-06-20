@@ -167,6 +167,8 @@ export const projects = [
     credentials: null,
     internalNote: 'Internal system — no public demo available.',
   },
+
+  
   {
     id: 'eshop',
     name: 'E-Shop',
